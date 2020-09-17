@@ -18,13 +18,13 @@ import com.okidoi.curso.boot.domain.Departamento;
  */
 
 @Service
+@Transactional(readOnly = false) //default readOnly ser false
 public class DepartamentoServiceImpl implements DepartamentoService {
 
 	@Autowired
 	private DepartamentoDao dao;
 	
 	
-	@Transactional
 	@Override
 	public void salvar(Departamento departamento) {
 		dao.save(departamento);
@@ -40,11 +40,13 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		dao.delete(id);
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public Departamento buscarPorId(Long id) {
 		return dao.findById(id);
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public List<Departamento> buscarTodos() {
 		return dao.findAll();

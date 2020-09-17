@@ -1,4 +1,4 @@
-package com.okidoi.curso.boot.web.controller;
+package com.okidoi.curso.boot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
