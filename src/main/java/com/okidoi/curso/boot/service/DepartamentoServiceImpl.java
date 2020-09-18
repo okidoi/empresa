@@ -18,38 +18,50 @@ import com.okidoi.curso.boot.domain.Departamento;
  */
 
 @Service
-@Transactional(readOnly = false) //default readOnly ser false
 public class DepartamentoServiceImpl implements DepartamentoService {
-
+	
 	@Autowired
 	private DepartamentoDao dao;
-	
-	
+
+	@Transactional(readOnly = false)
 	@Override
 	public void salvar(Departamento departamento) {
-		dao.save(departamento);
-	}
-
-	@Override
-	public void editar(Departamento departamento) {
-		dao.update(departamento);
-	}
-
-	@Override
-	public void excluir(Long id) {
-		dao.delete(id);
+		dao.save(departamento);		
 	}
 
 	@Transactional(readOnly = false)
 	@Override
+	public void editar(Departamento departamento) {
+		dao.update(departamento);		
+	}
+
+	@Transactional(readOnly = false)
+	@Override
+	public void excluir(Long id) {
+		dao.delete(id);		
+	}
+
+	@Transactional(readOnly = true)
+	@Override
 	public Departamento buscarPorId(Long id) {
+		
 		return dao.findById(id);
 	}
 
-	@Transactional(readOnly = false)
+	@Transactional(readOnly = true)
 	@Override
 	public List<Departamento> buscarTodos() {
+		
 		return dao.findAll();
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public boolean departamentoTemCargos(Long id) {
+		if (buscarPorId(id).getCargos().isEmpty()) {
+			return false;
+		}
+		return true;
 	}
 
 }
