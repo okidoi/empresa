@@ -5,6 +5,11 @@ import java.time.LocalDate;
 
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "Funcionarios")
@@ -13,12 +18,16 @@ public class Funcionario extends AbstractEntity<Long> {
 	@Column(nullable = false, unique = true)
 	private String nome;
 	
+	
+	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00") 
 	@Column(nullable = false, columnDefinition = "DECIMAL(7,2) DEFAULT 0.00") //para MySQL
 	private BigDecimal salario;
 
+	@DateTimeFormat(iso = ISO.DATE) //Informa se vai ter apenas a data, ou data e hora..etc
 	@Column(name = "data_entrada", nullable = false, columnDefinition = "DATE")
 	private LocalDate dataEntrada;
 	
+	@DateTimeFormat(iso = ISO.DATE) //Informa se vai ter apenas a data, ou data e hora..etc
 	@Column(name = "data_saida", nullable = true, columnDefinition = "DATE") //padrao de nullable é true, podemos remover aqui
 	private LocalDate dataSaida;	
 
