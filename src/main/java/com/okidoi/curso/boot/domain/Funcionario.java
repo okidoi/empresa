@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.PastOrPresent;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -23,6 +25,7 @@ public class Funcionario extends AbstractEntity<Long> {
 	@Column(nullable = false, columnDefinition = "DECIMAL(7,2) DEFAULT 0.00") //para MySQL
 	private BigDecimal salario;
 
+	@PastOrPresent(message = "{PastOrPresent.funcionario.dataEntrada}") //Mensagem de erro em caso de data futura.
 	@DateTimeFormat(iso = ISO.DATE) //Informa se vai ter apenas a data, ou data e hora..etc
 	@Column(name = "data_entrada", nullable = false, columnDefinition = "DATE")
 	private LocalDate dataEntrada;
@@ -31,7 +34,7 @@ public class Funcionario extends AbstractEntity<Long> {
 	@Column(name = "data_saida", nullable = true, columnDefinition = "DATE") //padrao de nullable é true, podemos remover aqui
 	private LocalDate dataSaida;	
 
-	
+	@Valid  //esse objeto endereço deve ser validado conforme as instruçoes que constam na classe de endereço
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco_id_fk")
 	private Endereco endereco;
