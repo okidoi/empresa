@@ -4,3 +4,6 @@
 do tipo GET, POST, PUT, DELETE.
 
 - Thymeleaf
+- Validações em Spring Validator
+- Validações em Bean Validation
+- 
