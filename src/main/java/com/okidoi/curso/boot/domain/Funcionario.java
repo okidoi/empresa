@@ -5,7 +5,10 @@ import java.time.LocalDate;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -17,29 +20,34 @@ import org.springframework.format.annotation.NumberFormat.Style;
 @Table(name = "Funcionarios")
 public class Funcionario extends AbstractEntity<Long> {
 
+	
+	@NotBlank
+	@Size(max = 255, min = 3)
 	@Column(nullable = false, unique = true)
 	private String nome;
 	
-	
+	@NotNull
 	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00") 
 	@Column(nullable = false, columnDefinition = "DECIMAL(7,2) DEFAULT 0.00") //para MySQL
 	private BigDecimal salario;
 
-	@PastOrPresent(message = "{PastOrPresent.funcionario.dataEntrada}") //Mensagem de erro em caso de data futura.
+	@NotNull
+	@PastOrPresent(message = "{PastOrPresent.funcionario.dataEntrada}") //Mensagem de erro em caso de data futura. (2a Forma de trabalhar com mensagens)
 	@DateTimeFormat(iso = ISO.DATE) //Informa se vai ter apenas a data, ou data e hora..etc
 	@Column(name = "data_entrada", nullable = false, columnDefinition = "DATE")
 	private LocalDate dataEntrada;
+	
 	
 	@DateTimeFormat(iso = ISO.DATE) //Informa se vai ter apenas a data, ou data e hora..etc
 	@Column(name = "data_saida", nullable = true, columnDefinition = "DATE") //padrao de nullable é true, podemos remover aqui
 	private LocalDate dataSaida;	
 
-	@Valid  //esse objeto endereço deve ser validado conforme as instruçoes que constam na classe de endereço
+	@Valid  //esse objeto endereço deve ser validado conforme as instruçoes de validação que constam na classe de endereço
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco_id_fk")
 	private Endereco endereco;
 	
-	
+	@NotNull(message = "{NotNull.funcionario.cargo}")
 	@ManyToOne
 	@JoinColumn(name = "cargo_id_fk")
 	private Cargo cargo;

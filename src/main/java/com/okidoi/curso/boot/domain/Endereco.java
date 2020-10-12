@@ -12,32 +12,32 @@ import javax.validation.constraints.Size;
 public class Endereco extends AbstractEntity<Long> {
 
 	@NotBlank
-	@Size(min = 3, max = 255)
+	@Size(min = 3, max = 255) //(1a Forma de trabalhar com mensagens - Javax)
 	@Column(nullable = false)
 	private String logradouro;
 
 	@NotBlank
-	@Size(min = 3, max = 255)	
+	@Size(min = 3, max = 255)	 //(1a Forma de trabalhar com mensagens - Javax)
 	@Column(nullable = false)
 	private String bairro;
 
 	@NotBlank
-	@Size(min = 3, max = 255)
+	@Size(min = 3, max = 255) //(1a Forma de trabalhar com mensagens - Javax)
 	@Column(nullable = false)
 	private String cidade;
 
-	@NotNull(message = "{NotNull.endereco.uf}")
+	@NotNull(message = "{NotNull.endereco.uf}")//(2a Forma de trabalhar com mensagens)
 	@Column(nullable = false, length = 2)
 	@Enumerated(EnumType.STRING)
 	private UF	uf;
 
 	@NotBlank
-	@Size(min = 9, max = 9,  message="{Size.endreco.cep}")
+	@Size(min = 9, max = 9,  message="{Size.endreco.cep}")//(2a Forma de trabalhar com mensagens)
 	@Column(nullable = false, length = 9)
 	private String cep;
 
 
-	@NotNull(message = "{NotNull.endereco.numero}")
+	@NotNull(message = "{NotNull.endereco.numero}")//(2a Forma de trabalhar com mensagens)
 	@Digits(integer = 5, fraction = 0)
 	@Column(nullable = false, length = 5)
 	private Integer numero;

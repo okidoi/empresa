@@ -11,7 +11,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +26,7 @@ import com.okidoi.curso.boot.domain.Funcionario;
 import com.okidoi.curso.boot.domain.UF;
 import com.okidoi.curso.boot.service.CargoSevice;
 import com.okidoi.curso.boot.service.FuncionarioService;
+import com.okidoi.curso.boot.web.validator.FuncionarioValidator;
 
 @Controller
 @RequestMapping("/funcionarios")
@@ -33,6 +36,11 @@ public class FuncionarioController {
 	private FuncionarioService funcionarioService;
 	@Autowired
 	private CargoSevice cargoService;
+	
+	@InitBinder  //necessário para o Spring Validator
+	public void initBinder(WebDataBinder binder) {   //Esse método é executado antes dos outros (como por exemplo salvar ou editar..etc)
+		binder.addValidators(new FuncionarioValidator());
+	}
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Funcionario funcionario) {
@@ -48,7 +56,7 @@ public class FuncionarioController {
 	@PostMapping("/salvar")
 	public String salvar(@Valid Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
 		
-		if(result.hasErrors()) {
+		if(result.hasErrors()) {  //Caso algum campo não passar na validação então encaminhos para o caminho abaixo
 			return "/funcionario/cadastro";
 		}
 		funcionarioService.salvar(funcionario);
