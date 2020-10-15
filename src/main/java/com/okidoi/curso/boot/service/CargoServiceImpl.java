@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.okidoi.curso.boot.dao.CargoDao;
 import com.okidoi.curso.boot.domain.Cargo;
+import com.okidoi.curso.boot.util.PaginacaoUtil;
 
 
 @Service
@@ -52,6 +53,11 @@ public class CargoServiceImpl implements CargoSevice {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public PaginacaoUtil<Cargo> buscaPagina(int pagina) {
+		return dao.buscaPaginada(pagina);
 	}	
 	
 }
