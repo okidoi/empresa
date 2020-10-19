@@ -6,16 +6,24 @@ public class PaginacaoUtil <T> {
 	
 	private int tamanho;  //numero de linhas que teremos na páginas
 	private int pagina;   //numero da pagina atual selecionada pelo cliente
-	private long totalDePaginas; 
+	private long totalDePaginas;
+	private String direcao;   //direção do ordenamento
 	private List<T> registros;
 	
 	
-	public PaginacaoUtil(int tamanho, int pagina, long totalDePaginas, List<T> registros) {
+	public PaginacaoUtil(int tamanho, int pagina, long totalDePaginas, String direcao, List<T> registros) {
 		super();
 		this.tamanho = tamanho;
 		this.pagina = pagina;
 		this.totalDePaginas = totalDePaginas;
+		this.direcao = direcao;
 		this.registros = registros;
+	}
+	public String getDirecao() {
+		return direcao;
+	}
+	public void setDirecao(String direcao) {
+		this.direcao = direcao;
 	}
 	public int getTamanho() {
 		return tamanho;

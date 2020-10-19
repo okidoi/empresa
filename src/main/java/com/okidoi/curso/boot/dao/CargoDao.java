@@ -17,5 +17,5 @@ public interface CargoDao {
 
     List<Cargo> findAll();
     
-    PaginacaoUtil<Cargo> buscaPaginada(int paginaSolicitada);
+    PaginacaoUtil<Cargo> buscaPaginada(int paginaSolicitada, String direcao);
 }
